@@ -5,7 +5,7 @@ export default function Home() {
   try {
     (async () => {
       console.dir("bb")
-      const results = await fetch('./netlify/functions/get_users').then((res) => res.json());
+      const results = await fetch(process.env.URL + '/netlify/functions/get_users.js').then((res) => res.json());
       console.dir(results);
     })();
   } catch (err) {
