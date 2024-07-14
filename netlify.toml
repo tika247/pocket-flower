@@ -4,7 +4,3 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-[[edge_functions]]
-function = "get_users"
-path = "/edge-functions/get_users"

@@ -8,7 +8,8 @@ const mongoClient = new MongoClient(process.env.MONGODB_URI);
 
 const clientPromise = mongoClient.connect();
 
-const handler = async (e) => {
+// Docs on event and context https://docs.netlify.com/functions/build/#code-your-function-2
+const handler = async (event) => {
   try {
     const database = (await clientPromise).db(process.env.MONGODB_DATABASE);
     const collection = database.collection(process.env.MONGODB_COLLECTION_USERS);
@@ -20,9 +21,6 @@ const handler = async (e) => {
   } catch (err) {
     return { statusCode: 500, body: err.toString() };
   }
-};
+}
 
-export default handler;
-
-// export default async (request: Request, context: Context) =>
-//   Response.json({ hello: 'world', location: context.geo.city })
+module.exports = { handler }
