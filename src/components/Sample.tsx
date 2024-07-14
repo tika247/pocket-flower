@@ -4,12 +4,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { useEffect } from 'react';
 
-export default function Sample() {
+export default async function Sample() {
+  const results = await fetch('/.netlify/functions/get_users').then((res) => res.json());
+  console.dir("results1")
+  console.dir(results)
+
   useEffect(() => {
     try {
       (async () => {
         const results = await fetch('/.netlify/functions/get_users').then((res) => res.json());
-        console.dir("results")
+        console.dir("results2")
         console.dir(results)
       })();
     } catch (err) {
@@ -18,6 +22,9 @@ export default function Sample() {
   }, []);
 
   return (
-    <p>Sample</p>
+    <div>
+      {results ? results.name : null}
+      <p>Sample</p>
+    </div>
   );
 }
