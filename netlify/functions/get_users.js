@@ -14,6 +14,8 @@ const handler = async (event) => {
     const database = (await clientPromise).db(process.env.MONGODB_DATABASE);
     const collection = database.collection(process.env.MONGODB_COLLECTION_USERS);
     const results = await collection.find({}).limit(10).toArray();
+    console.dir("results")
+    console.dir(results)
     return {
       statusCode: 200,
       body: JSON.stringify(results),
