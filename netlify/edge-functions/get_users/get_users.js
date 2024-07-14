@@ -8,7 +8,7 @@ const mongoClient = new MongoClient(process.env.MONGODB_URI!);
 
 const clientPromise = mongoClient.connect();
 
-const handler = async (e: Event) => {
+const handler = async (e) => {
   try {
     const database = (await clientPromise).db(process.env.MONGODB_DATABASE);
     const collection = database.collection(process.env.MONGODB_COLLECTION_USERS!);
@@ -17,7 +17,7 @@ const handler = async (e: Event) => {
       statusCode: 200,
       body: JSON.stringify(results),
     };
-  } catch (err: any) {
+  } catch (err) {
     return { statusCode: 500, body: err.toString() };
   }
 };
