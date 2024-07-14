@@ -1,8 +1,8 @@
 // @ts-ignore
 // import type { Context } from 'https://edge.netlify.com'
-import {MongoClient} from 'mongodb'; 
-import dotenv from 'dotenv'
-dotenv.config()
+import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const mongoClient = new MongoClient(process.env.MONGODB_URI!);
 
@@ -15,15 +15,14 @@ const handler = async (e: Event) => {
     const results = await collection.find({}).limit(10).toArray();
     return {
       statusCode: 200,
-      body: JSON.stringify(results)
-    }
+      body: JSON.stringify(results),
+    };
   } catch (err: any) {
-    return {statusCode: 500, body: err.toString()};
+    return { statusCode: 500, body: err.toString() };
   }
-}
+};
 
-
-export default handler
+export default handler;
 
 // export default async (request: Request, context: Context) =>
 //   Response.json({ hello: 'world', location: context.geo.city })
