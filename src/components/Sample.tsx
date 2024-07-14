@@ -9,6 +9,8 @@ export default function Sample() {
     try {
       (async () => {
         const results = await fetch('/.netlify/functions/get_users').then((res) => res.json());
+        console.dir("results")
+        console.dir(results)
       })();
     } catch (err) {
       console.error(`Get users: ${err}`);
