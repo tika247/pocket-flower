@@ -4,14 +4,14 @@ import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const mongoClient = new MongoClient(process.env.MONGODB_URI!);
+const mongoClient = new MongoClient(process.env.MONGODB_URI);
 
 const clientPromise = mongoClient.connect();
 
 const handler = async (e) => {
   try {
     const database = (await clientPromise).db(process.env.MONGODB_DATABASE);
-    const collection = database.collection(process.env.MONGODB_COLLECTION_USERS!);
+    const collection = database.collection(process.env.MONGODB_COLLECTION_USERS);
     const results = await collection.find({}).limit(10).toArray();
     return {
       statusCode: 200,
