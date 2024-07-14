@@ -1,8 +1,5 @@
-// @ts-ignore
-// import type { Context } from 'https://edge.netlify.com'
-import { MongoClient } from 'mongodb';
-import dotenv from 'dotenv';
-dotenv.config();
+const { MongoClient } = require("mongodb");
+require("dotenv").config();
 
 const mongoClient = new MongoClient(process.env.MONGODB_URI);
 

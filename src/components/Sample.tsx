@@ -5,18 +5,15 @@ dotenv.config();
 import { useEffect } from 'react';
 
 export default function Sample() {
-  console.dir("aa")
-  try {
-    (async () => {
-      console.dir("bb")
-      const results = await fetch('/netlify/functions/get_users.js').then((res) => res.json());
-      console.dir(results);
-    })();
-  } catch (err) {
-    console.dir("cc")
-    console.error(`Get users: ${err}`);
-  }
-  useEffect(() => {}, []);
+  useEffect(() => {
+    try {
+      (async () => {
+        const results = await fetch('/.netlify/functions/get_users').then((res) => res.json());
+      })();
+    } catch (err) {
+      console.error(`Get users: ${err}`);
+    }
+  }, []);
 
   return (
     <p>Sample</p>
