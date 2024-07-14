@@ -2,16 +2,32 @@
 
 import dotenv from 'dotenv';
 dotenv.config();
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+async function getResults() {
+  try {
+    return await fetch('/.netlify/functions/get_users').then((res) => res.json());
+  } catch (err) {
+    console.error(`Get users: ${err}`);
+  }
+}
 
 export default function Test() {
-  (async () => {
-    const results = await fetch('/.netlify/functions/get_users').then((res) => res.json());
-    console.dir("results")
-    console.dir(results)
-  })();
+  const [users, setUsers] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const results = await getResults();
+      setUsers(results);
+    };
 
-  console.dir("okok")
+    fetchData();
+  }, [])
+  useEffect(() => {
+    console.dir('users')
+    console.dir(users)
+    // @ts-ignore
+    users ? alert(users[0].name) : alert("no users")
+  }, [users])
 
   return (
     <div>
