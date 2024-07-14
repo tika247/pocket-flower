@@ -7,4 +7,4 @@
 
 [[edge_functions]]
 function = "get_users"
-path = "/edge_functions"
+path = "/edge-functions"
