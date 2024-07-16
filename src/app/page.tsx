@@ -1,11 +1,11 @@
 // import Image from 'next/image';
-import Test from "@/components/Test";
+import Controller from "@/components/Controller";
 
 export default function Home() {
   return (
     <main>
       <h2>Pocket-Flower</h2>
-      <Test />
+      <Controller />
     </main>
   );
 }

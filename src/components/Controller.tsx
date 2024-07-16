@@ -12,7 +12,7 @@ async function getResults() {
   }
 }
 
-export default function Test() {
+export default function Controller() {
   const [users, setUsers] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +31,7 @@ export default function Test() {
 
   return (
     <div>
-      <p>Test</p>
+      <p>Controller</p>
     </div>
   );
 }
