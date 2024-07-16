@@ -24,7 +24,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/types/**/*.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "netlify/**/*.js", "netlify/functions/get_users/get_users.js"],
+  "include": ["src/types/**/*.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules, eslint:recommended", "prettier", "netlify"],
   "rules": {
     "prettier/prettier": "error"

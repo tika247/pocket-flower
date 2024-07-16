@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "netlify": "netlify dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "fix": "eslint --fix && prettier . --write"
+    "fix": "eslint --fix && prettier . --write",
+    "server": "node server/index.js"
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.5.1",

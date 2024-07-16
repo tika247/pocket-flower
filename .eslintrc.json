@@ -24,6 +24,7 @@
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended"
   ],
+  // "ignores": ["/netlify", "/server"],
   "plugins": ["prettier", "@typescript-eslint", "react", "react-hooks"],
   "rules": {
     "object-shorthand": "error",

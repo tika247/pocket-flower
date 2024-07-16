@@ -1,10 +1,17 @@
 'use client';
 
-import dotenv from 'dotenv';
-dotenv.config();
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import { WithId } from 'mongodb';
 
-async function getResults() {
+export type Users = {
+  _id: string;
+  name: string;
+  password: string;
+  email: string;
+  role: string;
+} & WithId<Document>[];
+
+async function getUsersFromAtlas() {
   try {
     return await fetch('/.netlify/functions/get_users').then((res) => res.json());
   } catch (err) {
@@ -12,22 +19,24 @@ async function getResults() {
   }
 }
 
-export default function Controller() {
-  const [users, setUsers] = useState(null);
+export default function Controller({ usersFromDB }: { usersFromDB: Users | null }) {
+  const [users, setUsers] = useState<Users | null>(null);
+  console.dir('usersFromDB')
+  console.dir(usersFromDB)
+  const getUsers = useCallback(async () => {
+    return usersFromDB ? usersFromDB : await getUsersFromAtlas();
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
-      const results = await getResults();
-      setUsers(results);
+      setUsers(await getUsers());
     };
 
     fetchData();
-  }, [])
+  }, []);
   useEffect(() => {
-    console.dir('users')
-    console.dir(users)
-    // @ts-ignore
-    users ? alert(users[0].name) : alert("no users")
-  }, [users])
+    console.dir('users');
+    console.dir(users);
+  }, [users]);
 
   return (
     <div>
