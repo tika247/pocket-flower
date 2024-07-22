@@ -1,15 +1,14 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { WithId } from 'mongodb';
 
-export type Users = {
+export type User = {
   _id: string;
   name: string;
   password: string;
   email: string;
   role: string;
-} & WithId<Document>[];
+};
 
 async function getUsersFromAtlas() {
   try {
@@ -19,28 +18,26 @@ async function getUsersFromAtlas() {
   }
 }
 
-export default function Controller({ usersFromDB }: { usersFromDB: Users | null }) {
-  const [users, setUsers] = useState<Users | null>(null);
-  console.dir('usersFromDB')
-  console.dir(usersFromDB)
+export default function Controller({ usersFromDB }: { usersFromDB: User[] | null }) {
+  const [users, setUsers] = useState<User[] | null>(null);
+  console.dir('usersFromDB');
+  console.dir(usersFromDB);
   const getUsers = useCallback(async () => {
     return usersFromDB ? usersFromDB : await getUsersFromAtlas();
-  }, []);
+  }, [usersFromDB]);
+
   useEffect(() => {
     const fetchData = async () => {
       setUsers(await getUsers());
     };
 
     fetchData();
-  }, []);
-  useEffect(() => {
-    console.dir('users');
-    console.dir(users);
-  }, [users]);
+  }, [getUsers]);
 
   return (
     <div>
       <p>Controller</p>
+      {users?.map((user) => <p key={user.name}>{user.name}</p>)}
     </div>
   );
 }
