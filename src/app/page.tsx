@@ -1,11 +1,12 @@
 // import Image from 'next/image';
 import Controller from '@/components/Controller';
 import getUsersFromLocal from '@/modules/getUsersFromLocal';
-import { Users } from '@/components/Controller';
+import { User } from '@/components/Controller';
+import { WithId } from 'mongodb';
 
 export default async function Home() {
   const isDev: boolean = process.env.NODE_ENV === 'development';
-  const usersFromDB = isDev ? ((await getUsersFromLocal()) as Users) : null;
+  const usersFromDB = isDev ? ((await getUsersFromLocal()) as User[] & WithId<Document>[]) : null;
 
   return (
     <main>
