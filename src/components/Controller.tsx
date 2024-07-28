@@ -19,12 +19,14 @@ async function getUsersFromAtlas() {
 }
 
 export default function Controller({ usersFromDB }: { usersFromDB: User[] | null }) {
+  // ----- Mongo -----
   const [users, setUsers] = useState<User[] | null>(null);
   console.dir('usersFromDB');
   console.dir(usersFromDB);
   const getUsers = useCallback(async () => {
     return usersFromDB ? usersFromDB : await getUsersFromAtlas();
   }, [usersFromDB]);
+  // ----- Mongo -----
 
   useEffect(() => {
     const fetchData = async () => {

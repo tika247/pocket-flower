@@ -12,7 +12,9 @@
     "server": "node server/index.js"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
     "@netlify/plugin-nextjs": "^5.5.1",
+    "axios": "^1.7.2",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.3.2",
