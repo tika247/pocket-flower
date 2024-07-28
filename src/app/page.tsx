@@ -7,7 +7,7 @@ import Header from '@/components/Header';
 
 export default async function Home() {
   const isDev: boolean = process.env.NODE_ENV === 'development';
-  const usersFromDB = isDev ? ((await getUsersFromLocal()) as User[] & WithId<Document>[]) : null;
+  const usersFromLocalDB = isDev ? ((await getUsersFromLocal()) as User[] & WithId<Document>[]) : null;
 
   // ----- Auth -----
   const session = await getSession();
@@ -19,7 +19,7 @@ export default async function Home() {
     <>
       <Header />
       <main>
-        <Controller usersFromDB={usersFromDB} />
+        <Controller isDev={isDev} usersFromLocalDB={usersFromLocalDB} />
       </main>
     </>
   );

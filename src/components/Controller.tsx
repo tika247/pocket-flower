@@ -10,7 +10,15 @@ export type User = {
   role: string;
 };
 
-async function getUsersFromAtlas() {
+async function fetchUsersFromAuth0() {
+  try {
+    return await fetch('/.netlify/functions/get_users_from_auth0').then((res) => res.json());
+  } catch (err) {
+    console.error(`Get users from Auth0: ${err}`);
+  }
+}
+
+async function fetchUsersFromAtlas() {
   try {
     return await fetch('/.netlify/functions/get_users').then((res) => res.json());
   } catch (err) {
@@ -18,28 +26,54 @@ async function getUsersFromAtlas() {
   }
 }
 
-export default function Controller({ usersFromDB }: { usersFromDB: User[] | null }) {
+export default function Controller({ isDev, usersFromLocalDB }: { isDev: boolean; usersFromLocalDB: User[] | null }) {
+  // ----- Auth0 -----
+  const [usersFromAuth0, setUsersFromAuth0] = useState<User[] | null>(null);
+  const getUsersFromAuth0 = useCallback(async () => {
+    return await fetchUsersFromAuth0();
+  }, []);
+  // ----- Auth0 -----
+
   // ----- Mongo -----
-  const [users, setUsers] = useState<User[] | null>(null);
-  console.dir('usersFromDB');
-  console.dir(usersFromDB);
-  const getUsers = useCallback(async () => {
-    return usersFromDB ? usersFromDB : await getUsersFromAtlas();
-  }, [usersFromDB]);
+  const [usersFromAtlas, setUsersFromAtlas] = useState<User[] | null>(null);
+  const getUsersFromAtlas = useCallback(async () => {
+    return isDev ? usersFromLocalDB : await fetchUsersFromAtlas();
+  }, [isDev, usersFromLocalDB]);
   // ----- Mongo -----
 
   useEffect(() => {
+    if (isDev) return;
     const fetchData = async () => {
-      setUsers(await getUsers());
+      setUsersFromAuth0(await getUsersFromAuth0());
     };
 
     fetchData();
-  }, [getUsers]);
+  }, [isDev, usersFromAuth0, getUsersFromAuth0]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setUsersFromAtlas(await getUsersFromAtlas());
+    };
+
+    fetchData();
+  }, [usersFromAtlas, getUsersFromAtlas]);
 
   return (
     <div>
       <p>Controller</p>
-      {users?.map((user) => <p key={user.name}>{user.name}</p>)}
+
+      <p>
+        <b>Users From Auth0</b>
+      </p>
+      {usersFromAuth0?.map((user) => <p key={user.name}>{user.name}</p>)}
+      <br />
+      <br />
+      <br />
+      <br />
+      <p>
+        <b>Users From Atlas</b>
+      </p>
+      {usersFromAtlas?.map((user) => <p key={user.name}>{user.name}</p>)}
     </div>
   );
 }
