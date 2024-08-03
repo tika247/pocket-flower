@@ -4,6 +4,9 @@ import connection from '@netlify/planetscale';
 
 export const handler: Handler = withAuth0(
   async (event: HandlerEvent, context: HandlerContext) => {
+    console.dir('AUTH0_SECRET')
+    console.dir(process.env.AUTH0_SECRET)
+    console.dir(process.env.NEXT_PUBLIC_AUTH0_SECRET)
     const { rows: users } = await connection.execute('SELECT * FROM  users');
     return {
       statusCode: 200,
