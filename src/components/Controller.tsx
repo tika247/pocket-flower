@@ -27,6 +27,9 @@ async function fetchUsersFromAtlas() {
 }
 
 export default function Controller({ isDev, usersFromLocalDB }: { isDev: boolean; usersFromLocalDB: User[] | null }) {
+  console.dir('AUTH0_SECRET');
+  console.dir(process.env.AUTH0_SECRET);
+  console.dir(process.env.NEXT_PUBLIC_AUTH0_SECRET);
   // ----- Auth0 -----
   const [usersFromAuth0, setUsersFromAuth0] = useState<User[] | null>(null);
   const getUsersFromAuth0 = useCallback(async () => {
