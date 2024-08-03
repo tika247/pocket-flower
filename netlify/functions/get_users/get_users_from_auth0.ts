@@ -1,6 +1,9 @@
 import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { withAuth0 } from '@netlify/auth0';
 import connection from '@netlify/planetscale';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const handler: Handler = withAuth0(
   async (event: HandlerEvent, context: HandlerContext) => {
