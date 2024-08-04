@@ -12,6 +12,7 @@ export default async function Home() {
   // ----- Auth -----
   const session = await getSession();
   const user = session?.user;
+  console.dir('profile');
   console.dir(user);
   // ----- Auth -----
 

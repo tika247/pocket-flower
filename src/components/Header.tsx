@@ -8,8 +8,6 @@ import ButtonLogout from '@/components/ButtonLogout';
 export default function Header() {
   const { user, error, isLoading } = useUser();
 
-  console.log(user);
-
   if (error) throw new Error(`Header: ${error}`);
 
   const list = [
