@@ -12,7 +12,7 @@ export type User = {
 
 async function fetchUsersFromAuth0() {
   try {
-    return await fetch('/.netlify/functions/get_users_from_auth0').then((res) => res.json());
+    return await fetch('/.netlify/functions/auth_users').then((res) => res.json());
   } catch (err) {
     console.error(`Get users from Auth0: ${err}`);
   }
