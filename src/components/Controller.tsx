@@ -10,13 +10,13 @@ export type User = {
   role: string;
 };
 
-async function fetchUsersFromAuth0() {
-  try {
-    return await fetch('/.netlify/functions/auth_users').then((res) => res.json());
-  } catch (err) {
-    console.error(`Get users from Auth0: ${err}`);
-  }
-}
+// async function fetchUsersFromAuth0() {
+//   try {
+//     return await fetch('/.netlify/functions/auth_users').then((res) => res.json());
+//   } catch (err) {
+//     console.error(`Get users from Auth0: ${err}`);
+//   }
+// }
 
 async function fetchUsersFromAtlas() {
   try {
@@ -27,12 +27,11 @@ async function fetchUsersFromAtlas() {
 }
 
 export default function Controller({ isDev, usersFromLocalDB }: { isDev: boolean; usersFromLocalDB: User[] | null }) {
-
   // ----- Auth0 -----
-  const [usersFromAuth0, setUsersFromAuth0] = useState<User[] | null>(null);
-  const getUsersFromAuth0 = useCallback(async () => {
-    return await fetchUsersFromAuth0();
-  }, []);
+  // const [usersFromAuth0, setUsersFromAuth0] = useState<User[] | null>(null);
+  // const getUsersFromAuth0 = useCallback(async () => {
+  //   return await fetchUsersFromAuth0();
+  // }, []);
   // ----- Auth0 -----
 
   // ----- Mongo -----
@@ -42,12 +41,12 @@ export default function Controller({ isDev, usersFromLocalDB }: { isDev: boolean
   }, [isDev, usersFromLocalDB]);
   // ----- Mongo -----
 
-  useEffect(() => {
-    if (isDev || usersFromAuth0) return;
-    (async function () {
-      setUsersFromAuth0(await getUsersFromAuth0());
-    })();
-  }, [isDev, usersFromAuth0, getUsersFromAuth0]);
+  // useEffect(() => {
+  //   if (isDev || usersFromAuth0) return;
+  //   (async function () {
+  //     setUsersFromAuth0(await getUsersFromAuth0());
+  //   })();
+  // }, [isDev, usersFromAuth0, getUsersFromAuth0]);
 
   useEffect(() => {
     if (usersFromAtlas) return;
@@ -60,11 +59,11 @@ export default function Controller({ isDev, usersFromLocalDB }: { isDev: boolean
     <div>
       <p>Controller</p>
 
-      <p>
+      {/* <p>
         <b>Users From Auth0</b>
       </p>
       {usersFromAuth0?.map((user) => <p key={user.name}>{user.name}</p>)}
-      <br />
+      <br /> */}
       <br />
       <br />
       <br />
