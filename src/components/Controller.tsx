@@ -46,20 +46,17 @@ export default function Controller({ isDev, usersFromLocalDB }: { isDev: boolean
   // ----- Mongo -----
 
   useEffect(() => {
-    if (isDev) return;
-    const fetchData = async () => {
+    if (isDev || usersFromAuth0) return;
+    (async function () {
       setUsersFromAuth0(await getUsersFromAuth0());
-    };
-
-    fetchData();
+    })();
   }, [isDev, usersFromAuth0, getUsersFromAuth0]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    if (usersFromAtlas) return;
+    (async function () {
       setUsersFromAtlas(await getUsersFromAtlas());
-    };
-
-    fetchData();
+    })();
   }, [usersFromAtlas, getUsersFromAtlas]);
 
   return (
