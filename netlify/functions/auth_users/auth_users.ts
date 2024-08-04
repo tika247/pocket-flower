@@ -1,8 +1,9 @@
+import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { withAuth0 } from '@netlify/auth0';
 import connection from '@netlify/planetscale';
 
-export const handler = withAuth0(
-  async (event, context) => {
+export const handler: Handler = withAuth0(
+  async (event: HandlerEvent, context: HandlerContext) => {
 
     const { rows: users } = await connection.execute('SELECT * FROM  users');
     return {
